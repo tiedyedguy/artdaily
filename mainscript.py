@@ -14,9 +14,10 @@ r = requests.get(url=URL, params=PARAMS)
 data = r.json()
 
 title = data["data"][0]["title"]
-if (data["data"][0]["creators"][0]["name_in_original_language"] is not None):
+print(data["data"][0]["creators"])
+if (data["data"][0]["creators"] and data["data"][0]["creators"][0]["description"] is not None):
     title = title + " - " + \
-        data["data"][0]["creators"][0]["name_in_original_language"]
+        data["data"][0]["creators"][0]["description"]
 title = title + " - " + data["data"][0]["creation_date"]
 print(title)
 print(data["data"][0]["images"]["web"]["url"])

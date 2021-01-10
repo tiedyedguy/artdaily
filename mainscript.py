@@ -1,17 +1,22 @@
 import praw
 import requests
+import random
 from datetime import date
 
 d0 = date(2020, 1, 2)
 d1 = date.today()
 delta = d1 - d0
-whichpicture = delta.days
+whichpicture = 32652 - delta.days
+whichpicture = random.randint(1, 32651)
+
 
 URL = "https://openaccess-api.clevelandart.org/api/artworks/"
-PARAMS = {'cc0': 1, 'has_image': 1, 'limit': 1, 'skip': whichpicture}
+PARAMS = {"cc0": 1,
+          'has_image': 1, 'limit': 1, 'skip': whichpicture}
 
 r = requests.get(url=URL, params=PARAMS)
 data = r.json()
+
 
 title = data["data"][0]["title"]
 print(data["data"][0]["creators"])
@@ -19,6 +24,7 @@ if (data["data"][0]["creators"] and data["data"][0]["creators"][0]["description"
     title = title + " - " + \
         data["data"][0]["creators"][0]["description"]
 title = title + " - " + data["data"][0]["creation_date"]
+
 print(title)
 print(data["data"][0]["images"]["web"]["url"])
 
